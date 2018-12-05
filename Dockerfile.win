@@ -1,0 +1,14 @@
+# pipe-test image
+# build:
+# docker build -t pipe-test -f ./Dockerfile.win .
+# run:
+# docker run -ti --rm `
+#   -v //./pipe/containerd-containerd://./pipe/containerd-containerd `
+#   -v "C:/:C:/hostfs" `
+#   docker-kubelet -iodir C:/docker-kubelet
+
+FROM microsoft/powershell:nanoserver
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+COPY .out/ C:/app/
+WORKDIR "C:/app"
+ENTRYPOINT ["C:/app/pipe-test.exe"]
